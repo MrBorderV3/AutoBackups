@@ -1,4 +1,4 @@
-package me.border.autobackups.module.backup;
+package me.border.autobackups.module.backupmodule;
 
 import me.border.autobackups.file.BackupSaveFile;
 
@@ -8,13 +8,15 @@ import java.util.Map;
 
 /**
  * Manages all the backups
+ *
+ * @see Backup
  */
 public class BackupManager {
-    private static BackupManager instance = new BackupManager();
+    private static final BackupManager instance = new BackupManager();
 
     public static final File backupDir = new File(System.getProperty("user.home") + File.separator + "AutoBackups" + File.separator + "Backups");
 
-    private Map<String, Backup> backupMap = new HashMap<>();
+    private final Map<String, Backup> backupMap = new HashMap<>();
 
     /**
      * Starts up the backup manager and loads all backups from the backups directory.
@@ -46,12 +48,12 @@ public class BackupManager {
      * @param name Name of the backup.
      */
     public void deleteBackup(String name){
-        Backup backup = backupMap.get(name);
+        Backup backup = getBackup(name);
         backup.delete();
     }
 
     /**
-     * Get an instance of the <@code>BackupManager</@code>
+     * Get an instance of the {@code BackupManager}
      *
      * @return The instance.
      */
